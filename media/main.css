@@ -1,0 +1,13 @@
+body {
+    background-color: transparent;
+}
+
+.summary {
+    font-size: 14px;
+    color: #4d804c;
+    text-align: center;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    text-align: left;
+    font-weight: 700;
+}

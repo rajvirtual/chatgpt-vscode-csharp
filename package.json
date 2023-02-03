@@ -1,0 +1,91 @@
+{
+  "name": "chatgpt-vscode-csharp",
+  "displayName": "ChatGPT: Generate XML documentation for C# code using Open AI",
+  "publisher": "rajvijay",
+  "description": "VS Code extension to generate XML Summary for C# Code",
+  "license": "MIT",
+  "version": "0.0.1",
+  "icon": "resources/extensionIcon.png",
+  "engines": {
+    "vscode": "^1.74.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onView:code.summary"
+  ],
+  "main": "./dist/extension",
+  "contributes": {
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "csharp-chatView",
+          "title": "CHAT GPT C#",
+          "icon": "$(debug-restart-frame)"
+        }
+      ]
+    },
+    "views": {
+      "csharp-chatView": [
+        {
+          "type": "webview",
+          "id": "code.summary",
+          "name": "XML Documentation"
+        }
+      ]
+    },
+    "commands": [
+      {
+        "command": "chatgpt-vscode-csharp.showSummary",
+        "title": "Generate C# XML Documentation"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "chatgpt-vscode-csharp.showSummary",
+          "when": "editorHasSelection",
+          "group": "vscode-csharp-group@1"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "chatgpt-vscode-csharp",
+      "type": "object",
+      "properties": {
+        "chatgpt-vscode-csharp.openaiApiKey": {
+          "type": "string",
+          "description": "Your API Key obtained from openai.com website."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "webpack --mode production",
+    "webpack": "webpack --mode development",
+    "webpack-dev": "webpack --mode development --watch",
+    "test-compile": "tsc -p ./",
+    "lint": "eslint \"src/**/*.ts\""
+  },
+  "devDependencies": {
+    "@types/glob": "^8.0.0",
+    "@types/mocha": "^10.0.1",
+    "@types/node": "16.x",
+    "@types/vscode": "^1.74.0",
+    "@typescript-eslint/eslint-plugin": "^5.45.0",
+    "@typescript-eslint/parser": "^5.45.0",
+    "@vscode/test-electron": "^2.2.0",
+    "eslint": "^8.28.0",
+    "glob": "^8.0.3",
+    "mocha": "^10.1.0",
+    "ts-loader": "^9.4.2",
+    "typescript": "^4.9.3",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^5.0.1"
+  },
+  "dependencies": {
+    "@types/vscode-webview": "^1.57.1",
+    "openai": "^3.1.0"
+  }
+}
