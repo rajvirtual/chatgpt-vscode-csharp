@@ -1,10 +1,13 @@
 {
   "name": "chatgpt-vscode-csharp",
-  "displayName": "ChatGPT: Generate XML documentation for C# code using Open AI",
-  "publisher": "rajvijay",
-  "description": "VS Code extension to generate XML Summary for C# Code",
+  "displayName": "Open AI - C# Helper Tools",
+  "publisher": "Raj Vijay",
+  "description": "Open AI - C# Helper Tools",
   "license": "MIT",
   "version": "0.0.1",
+  "repository": {
+    "url": "https://github.com/rajvirtual/chatgpt-vscode-csharp"
+  },
   "icon": "resources/extensionIcon.png",
   "engines": {
     "vscode": "^1.74.0"
@@ -12,16 +15,14 @@
   "categories": [
     "Other"
   ],
-  "activationEvents": [
-    "onView:code.summary"
-  ],
   "main": "./dist/extension",
+  "activationEvents": [],
   "contributes": {
     "viewsContainers": {
       "activitybar": [
         {
           "id": "csharp-chatView",
-          "title": "CHAT GPT C#",
+          "title": "Open AI C#",
           "icon": "$(debug-restart-frame)"
         }
       ]
@@ -31,7 +32,7 @@
         {
           "type": "webview",
           "id": "code.summary",
-          "name": "XML Documentation"
+          "name": "Results Panel"
         }
       ]
     },
@@ -51,7 +52,7 @@
       ]
     },
     "configuration": {
-      "title": "chatgpt-vscode-csharp",
+      "title": "Open AI - C# Helper Tools",
       "type": "object",
       "properties": {
         "chatgpt-vscode-csharp.openaiApiKey": {

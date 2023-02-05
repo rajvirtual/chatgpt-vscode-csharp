@@ -9,15 +9,14 @@ import { Configuration, OpenAIApi } from 'openai';
 // Your extension is activated the very first time the command is executed
 export async function activate(context: vscode.ExtensionContext) {
 
-	const provider = new ChatGptViewProvider(context.extensionUri);
+	const provider = new OpenAIViewProvider(context.extensionUri);
 	const config = vscode.workspace.getConfiguration('chatgpt-vscode-csharp');
-	//const openaiApiKey = config.get('openaiApiKey') as string | undefined;
-	const openaiApiKey = "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";
+	const openaiApiKey = config.get('openaiApiKey') as string | undefined;
 
 	provider.setOpenAIClient(openaiApiKey);
 
 	context.subscriptions.push(
-		vscode.window.registerWebviewViewProvider(ChatGptViewProvider.viewType, provider));
+		vscode.window.registerWebviewViewProvider(OpenAIViewProvider.viewType, provider));
 
 	const commandShowSummary = vscode.commands.registerCommand('chatgpt-vscode-csharp.showSummary', async () => {
 		var editor = vscode.window.activeTextEditor;
@@ -43,7 +42,7 @@ export async function activate(context: vscode.ExtensionContext) {
 	});
 }
 
-class ChatGptViewProvider implements vscode.WebviewViewProvider {
+class OpenAIViewProvider implements vscode.WebviewViewProvider {
 
 	public static readonly viewType = 'code.summary';
 
@@ -57,13 +56,18 @@ class ChatGptViewProvider implements vscode.WebviewViewProvider {
 	) { }
 
 	public setOpenAIClient(openaiApiKey: string) {
-		if (openaiApiKey !== this.openaiApiKey) {
-			this.openaiApiKey = openaiApiKey;
-			const configuration = new Configuration({
-				apiKey: openaiApiKey,
-			});
+		if (!openaiApiKey) {
+			console.warn("openaiApiKey is not set, please set your Open AI API Key in extension Settings.");
+		}
+		else {
+			if (openaiApiKey !== this.openaiApiKey) {
+				this.openaiApiKey = openaiApiKey;
+				const configuration = new Configuration({
+					apiKey: openaiApiKey,
+				});
 
-			this.openaiClient = new OpenAIApi(configuration);
+				this.openaiClient = new OpenAIApi(configuration);
+			}
 		}
 	}
 
@@ -93,6 +97,11 @@ class ChatGptViewProvider implements vscode.WebviewViewProvider {
 
 	public async showSummary(text: string) {
 
+		if (!this.openaiClient) {
+			console.error("openaiClient is not set");
+			return;
+		}
+
 		const promptPrefix = `Please provide C# XML summary documentation for the following code snippet. No need to show the code snippet in th result.`;
 
 		const prompt = `${promptPrefix} ${text}`;
@@ -103,11 +112,10 @@ class ChatGptViewProvider implements vscode.WebviewViewProvider {
 
 		vscode.window.withProgress({ location: { viewId: "code.summary" } },
 			async () => {
-				return new Promise(async (resolve) => {
+				try {
 					if (!this._view) {
 						await vscode.commands.executeCommand('code.summary.focus');
 					}
-
 					const completion = await this.openaiClient.createCompletion({
 						model: "text-davinci-003",
 						prompt: prompt,
@@ -117,9 +125,11 @@ class ChatGptViewProvider implements vscode.WebviewViewProvider {
 					if (this._view) {
 						this._view.show?.(true);
 						this._view.webview.postMessage({ type: 'addSummary', text: completion.data.choices[0].text });
-						resolve(true);
 					}
-				});
+				}
+				catch (ex) {
+					console.error(ex);
+				}
 			});
 	};
 
