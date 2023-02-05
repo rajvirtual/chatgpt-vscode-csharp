@@ -1,10 +1,11 @@
-# Open AI VS Code Extension to generate C# XML Documentation. 
+# OpenAI C# XML Documentation Generator for VS Code
 
-This VS Code leverages Open AI Davinci Model to generate C# XML Documentation.  
+This VS Code extension uses the OpenAI Davinci Model to generate C# XML documentation. Simply select a code snippet and generate documentation using the context menu. 
 
-**Features**
-
-C# Developers can select code snippets and `Generate C# XML Documentation` by using the context menu.
+**Key Features**
+* Generate C# XML documentation with ease
+* User-friendly context menu
+* Integration with OpenAI API
 
 
 
@@ -14,26 +15,23 @@ C# Developers can select code snippets and `Generate C# XML Documentation` by us
 
 
 
-**Note From Author**: I created this extension as a fun weekend side project and its work in progress. As this is my first VS Code extension and a newbie to AI, there is much room for improvement. Hoping to find more free time during weekends to add more features/improvements to this extension.
-  
+**Usage**
 
-**Configuring the extension**
+To use this extension, set the `chatgpt-vscode-csharp.openaiApiKey` configuration to your OpenAI API Key.
 
-*  `chatgpt-vscode-csharp.openaiApiKey`: Set your API Key obtained from openai.com website.
+If the API call returns a 401 error, regenerate a new API Key on the OpenAI website. Any errors from the OpenAI API calls will be logged in the console.
 
 
-**Note:**
+**Disclaimer**
 
-If the call to Open AI throws a 401, then regenerate a new API Key in Open AI website. Any errors from the open ai calls
-are logged in the console.
+This extension is a work in progress and was created as a weekend side project by the author. The author is a newbie to AI and this is his first VS Code extension, so there is room for improvement. The author hopes to find more free time in the future to add new features and improvements to the extension.
 
 
 **Credits**
 
-This extension is inspired by https://github.com/mpociot/chatgpt-vscode
+This extension was inspired by the following repo: https://github.com/mpociot/chatgpt-vscode. 
 
-
-How to use Web View in VS Code extension development : https://github.com/microsoft/vscode-extension-samples/tree/main/webview-view-sample
+Information on using web views in VS Code extension development can be found here: https://github.com/microsoft/vscode-extension-samples/tree/main/webview-view-sample.
 
 
 [def]: resources/animation.gif?raw=true "Demo"
