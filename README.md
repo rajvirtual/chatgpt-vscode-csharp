@@ -14,7 +14,7 @@ C# Developers can select code snippets and `Generate C# XML Documentation` by us
 
 
 
-**Note From Author**: I created this extension as a fun side project and its work in progress. As this is my first VS Code extension and a newbie to AI, there is much room for improvement. Hoping to add more features/improvements to this extension.
+**Note From Author**: I created this extension as a fun weekend side project and its work in progress. As this is my first VS Code extension and a newbie to AI, there is much room for improvement. Hoping to find more free time during weekends to add more features/improvements to this extension.
   
 
 **Configuring the extension**
